@@ -1,0 +1,36 @@
+{
+  "name": "javascript-winwheel",
+  "version": "3.0.0",
+  "description": "Winwheel.js is a feature packed JavaScript library that allows you to easily create spinning Prize Wheels on HTML5 canvas using highly configurable JavaScript classes.",
+  "main": "dist/Winwheel.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zarocknz/javascript-winwheel.git"
+  },
+  "keywords": [
+    "wheel",
+    "spinner",
+    "roulete",
+    "wheeloffortune",
+    "fortune",
+    "game"
+  ],
+  "author": "zarocknz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zarocknz/javascript-winwheel/issues"
+  },
+  "homepage": "https://github.com/zarocknz/javascript-winwheel#readme",
+  "dependencies": {
+    "babel-loader": "^8.2.2",
+    "gsap": "^3.5.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.0"
+  }
+}

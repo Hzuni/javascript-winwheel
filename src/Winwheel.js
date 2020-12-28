@@ -29,9 +29,11 @@
 // The constructor for the WinWheel object, a JSON-like array of options can be passed in.
 // By default the wheel is drawn if canvas object exists on the page, but can pass false as second parameter if don't want this to happen.
 // ====================================================================================================================
-function Winwheel(options, drawWheel)
+import gsap from "gsap";
+
+export function Winwheel(options, drawWheel)
 {
-    defaultOptions = {
+    let defaultOptions = {
         'canvasId'          : 'canvas',     // Id of the canvas which the wheel is to draw on to.
         'centerX'           : null,         // X position of the center of the wheel. The default of these are null which means will be placed in center of the canvas.
         'centerY'           : null,         // Y position of the wheel center. If left null at time of construct the center of the canvas is used.
@@ -1734,7 +1736,7 @@ Winwheel.prototype.startAnimation = function()
         winwheelToDrawDuringAnimation = this;
 
         // Put together the properties of the greesock animation.
-        let properties = new Array(null);
+        let properties = new Object();
         properties[this.animation.propertyName] = this.animation.propertyValue; // Here we set the property to be animated and its value.
         properties['yoyo']       = this.animation.yoyo;     // Set others.
         properties['repeat']     = this.animation.repeat;
@@ -1744,7 +1746,7 @@ Winwheel.prototype.startAnimation = function()
 
         // Do the tween animation passing the properties from the animation object as an array of key => value pairs.
         // Keep reference to the tween object in the wheel as that allows pausing, resuming, and stopping while the animation is still running.
-        this.tween = TweenMax.to(this, this.animation.duration, properties);
+        this.tween = gsap.to(this, this.animation.duration, properties);
     }
 }
 
@@ -2133,7 +2135,7 @@ function PointerGuide(options)
 // ====================================================================================================================
 // This function takes the percent 0-100 and returns the number of degrees 0-360 this equates to.
 // ====================================================================================================================
-function winwheelPercentToDegrees(percentValue)
+export function winwheelPercentToDegrees(percentValue)
 {
     let degrees = 0;
 
@@ -2149,7 +2151,7 @@ function winwheelPercentToDegrees(percentValue)
 // In order for the wheel to be re-drawn during the spin animation the function greesock calls needs to be outside
 // of the class as for some reason it errors if try to call winwheel.draw() directly.
 // ====================================================================================================================
-function winwheelAnimationLoop()
+export function winwheelAnimationLoop()
 {
     if (winwheelToDrawDuringAnimation) {
         // Check if the clearTheCanvas is specified for this animation, if not or it is not false then clear the canvas.
@@ -2195,7 +2197,7 @@ function winwheelAnimationLoop()
 // This function figures out if the callbackSound function needs to be called by working out if the segment or pin
 // has changed since the last animation loop.
 // ====================================================================================================================
-function winwheelTriggerSound()
+export function winwheelTriggerSound()
 {
     // If this property does not exist then add it as a property of the winwheel.
     if (winwheelToDrawDuringAnimation.hasOwnProperty('_lastSoundTriggerNumber') == false) {
@@ -2234,7 +2236,7 @@ function winwheelTriggerSound()
 // ====================================================================================================================
 let winwheelToDrawDuringAnimation = null;  // This global is set by the winwheel class to the wheel object to be re-drawn.
 
-function winwheelStopAnimation(canCallback)
+export function winwheelStopAnimation(canCallback)
 {
     // When the animation is stopped if canCallback is not false then try to call the callback.
     // false can be passed in to stop the after happening if the animation has been stopped before it ended normally.
@@ -2259,7 +2261,7 @@ function winwheelStopAnimation(canCallback)
 // ====================================================================================================================
 let winhweelAlreadyDrawn = false;
 
-function winwheelLoadedImage()
+export function winwheelLoadedImage()
 {
     // Prevent multiple drawings of the wheel which ocurrs without this check due to timing of function calls.
     if (winhweelAlreadyDrawn == false) {
@@ -2288,7 +2290,7 @@ function winwheelLoadedImage()
 // Called when the wheel is to resize. This is normally called from a onresize of the window, also called from onload
 // so the initial size is correct. Here we must re-size the canvas and work out the scaleFactor for the wheel.
 // ====================================================================================================================
-function winwheelResize()
+export function winwheelResize()
 {
     // By default set the margin to 40px, this can be overridden if needed.
     // This is to stop the canvas going right to the right edge of the screen and being overlayed by a scrollbar though
@@ -2338,3 +2340,4 @@ function winwheelResize()
     // Now re-draw the wheel to ensure the changes in size are rendered.
     winwheelToDrawDuringAnimation.draw();
 }
+
